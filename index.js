@@ -34,7 +34,7 @@ server.post('/register',async(req,res)=>{
 })
 
 
-server.post('./login',async(req,res)=>{
+server.post('/login',async(req,res)=>{
     try{
     const {userName,password}=req.body
     const userExist=await User.findOne({userName})
@@ -66,6 +66,7 @@ server.post('./login',async(req,res)=>{
 
     }
 })
+
 server.listen(8055, () => {
     console.log('server listening on port 8055')
 })
