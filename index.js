@@ -3,10 +3,12 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const User=require('./models/User')
+const product=require('./models/product')
 
 const server = express()
 server.use(cors())
 server.use(bodyParser.json())
+server.use('/product',productRoute)
 
 mongoose.connect('mongodb+srv://bhagyashri:Bhagyashri%40123@leadsoft.fuhdihp.mongodb.net/?retryWrites=true&w=majority&appName=leadsoft').then(() =>
     console.log('database connected ')
@@ -17,6 +19,14 @@ mongoose.connect('mongodb+srv://bhagyashri:Bhagyashri%40123@leadsoft.fuhdihp.mon
 server.post('/register',async(req,res)=>{
     try{
         const{fullName,userName,age,password}=req.body
+        const userExist=await User.findOne({userName})
+        if(userExist){
+            return res.json({
+                status:true,
+                message:'user already exist'
+   
+            })
+        }
         const userObj=new User({fullName,userName,age,password})
          await userObj.save()
          res.json({
