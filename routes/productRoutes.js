@@ -1,9 +1,10 @@
 const express=require('express')
-const router=require('../models/product')
+const router=express.Router()
 const product=require('../models/product')
-router.post('/add',async(requestAnimationFrame,res)=>{
+
+router.post('/add',async(req,res)=>{
     try{
-        const {productName,productPrice,productunit,productDescription}=req.body
+        const {productName,productPrice,productUnit,productDescription}=req.body
         const productExist=await product.findOne({productName})
         if(productExist){
              return res.json({
@@ -11,8 +12,8 @@ router.post('/add',async(requestAnimationFrame,res)=>{
                 message:'product already exist'
              })
         }
-        const productObj=new product({ productName,productPrice,productunit,productDescription })
-        await productPrice.save()
+        const productObj=new product({ productName,productPrice,productUnit,productDescription })
+        await productObj.save()
         res.json({
             status:true,
             message:'product added successfully'
@@ -27,9 +28,9 @@ router.post('/add',async(requestAnimationFrame,res)=>{
     }
 })
 
-routes.get('/get',async(req,res)=>{
+router.get('/get',async(req,res)=>{
     try{
-      const results=await product.findOne()
+      const results=await product.find()
       res.json({
         status:true,
         message:results

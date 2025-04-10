@@ -3,12 +3,12 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const User=require('./models/User')
-const product=require('./models/product')
+const productRoutes=require('./routes/productRoutes')
 
 const server = express()
 server.use(cors())
 server.use(bodyParser.json())
-server.use('/product',productRoute)
+server.use('/product',productRoutes)
 
 mongoose.connect('mongodb+srv://bhagyashri:Bhagyashri%40123@leadsoft.fuhdihp.mongodb.net/?retryWrites=true&w=majority&appName=leadsoft').then(() =>
     console.log('database connected ')
